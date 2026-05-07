@@ -44,7 +44,6 @@
             line-height: 1.5;
         }
 
-        /* ── Header ──────────────────────── */
         .header {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -125,7 +124,8 @@
         .ticker-label i { font-size: 0.65rem; }
         .ticker-track {
             display: flex;
-            animation: tickerScroll 40s linear infinite;
+            /* ── Velocidad más lenta: 80s ── */
+            animation: tickerScroll 80s linear infinite;
             white-space: nowrap;
             gap: 4px;
             align-items: center;
@@ -201,7 +201,6 @@
         }
         .sport-tab i { font-size: 0.95rem; width: 18px; text-align: center; }
 
-        /* ── Contenido principal ────────── */
         .main {
             max-width: 1000px;
             margin: 0 auto;
@@ -214,7 +213,6 @@
             to { opacity:1; transform: translateY(0); }
         }
 
-        /* ── Filtros y resumen ──────────── */
         .panel-header {
             display: flex;
             flex-wrap: wrap;
@@ -277,7 +275,6 @@
         .summary-dot.fin-dot { background: var(--fin); }
         .summary-dot.sched-dot { background: var(--sched); }
 
-        /* ── Tarjeta de partido ─────────── */
         .match-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -352,7 +349,6 @@
         .state-badge.finished { background: var(--fin-bg); color: var(--fin-text); }
         .state-badge.scheduled { background: var(--sched-bg); color: var(--sched-text); }
 
-        /* ── Detalle expandible ─────────── */
         .match-detail {
             display: none;
             margin-top: 12px;
@@ -376,7 +372,6 @@
         }
         .detail-chip i { color: var(--accent); font-size: 0.75rem; }
 
-        /* ── Estado vacío / error ───────── */
         .loader {
             display: flex;
             justify-content: center;
@@ -411,7 +406,6 @@
         }
         .retry-btn:hover { background: var(--accent2); }
 
-        /* ── Responsive ─────────────────── */
         @media (max-width: 768px) {
             .header { padding: 10px 14px; }
             .brand { font-size: 1.1rem; }
@@ -430,16 +424,15 @@
             .match-card { padding: 10px 8px; }
             .team { font-size: 0.72rem; }
             .score-box { font-size: 1rem; min-width: 48px; }
-            .ticker-track { animation-duration: 25s; }
+            /* ── En móviles también más lento ── */
+            .ticker-track { animation-duration: 55s; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ── Cabecera ──────────────────────── -->
     <header class="header">
         <div class="brand">
-            <!-- Icono de copa eliminado según la solicitud -->
             <span>Todo Deportes</span>
         </div>
         <div class="header-right">
@@ -450,30 +443,23 @@
         </div>
     </header>
 
-    <!-- ── Cintillo de datos en tiempo real ─ -->
     <div class="ticker-wrap" id="tickerWrap">
         <span class="ticker-label" id="tickerLabel"><i class="fa-solid fa-bolt"></i> EN VIVO</span>
         <div class="ticker-track" id="tickerTrack"></div>
     </div>
 
-    <!-- ── Navegación de deportes ────────── -->
     <nav class="sport-nav" id="sportNav"></nav>
 
-    <!-- ── Contenido ─────────────────────── -->
     <main class="main" id="mainContent"></main>
 
     <script>
         (function() {
-            // ═══════════════════════════════════════════
-            // CONFIGURACIÓN
-            // ═══════════════════════════════════════════
             const CONFIG = {
                 INTERVALO_REFRESCO: 35000,
                 VIDA_CACHE: 30000,
                 INTERVALO_TICKER: 20000,
                 API_BASE: 'https://site.api.espn.com/apis/site/v2/sports',
                 DEPORTES: [
-                    // MLB movida a la primera posición
                     { id: 'baseball-mlb', nombre: 'MLB', icon: 'fa-baseball', sport: 'baseball',
                         league: 'mlb', pais: 'EE.UU.' },
                     { id: 'football-nfl', nombre: 'NFL', icon: 'fa-football', sport: 'football',
@@ -509,9 +495,6 @@
                 ],
             };
 
-            // ═══════════════════════════════════════════
-            // ESTADO GLOBAL
-            // ═══════════════════════════════════════════
             const STATE = {
                 deporteActivo: CONFIG.DEPORTES[0].id,
                 filtroActivo: 'todos',
@@ -520,9 +503,6 @@
                 marcadoresAnteriores: {},
             };
 
-            // ═══════════════════════════════════════════
-            // REFERENCIAS DOM
-            // ═══════════════════════════════════════════
             const DOM = {
                 nav: document.getElementById('sportNav'),
                 main: document.getElementById('mainContent'),
@@ -532,9 +512,6 @@
                 liveTime: document.getElementById('liveTime'),
             };
 
-            // ═══════════════════════════════════════════
-            // UTILIDADES
-            // ═══════════════════════════════════════════
             const Util = {
                 escaparHTML(str) {
                     const div = document.createElement('div');
@@ -553,12 +530,8 @@
                 },
             };
 
-            // ═══════════════════════════════════════════
-            // API (con idioma español)
-            // ═══════════════════════════════════════════
             const API = {
                 async obtenerDatos(deporte) {
-                    // Se añade parámetro lang=es para recibir datos en español
                     const url =
                         `${CONFIG.API_BASE}/${deporte.sport}/${deporte.league}/scoreboard?lang=es&limit=60`;
                     const resp = await fetch(url);
@@ -614,9 +587,6 @@
                 },
             };
 
-            // ═══════════════════════════════════════════
-            // GESTOR DE CACHÉ Y CAMBIOS
-            // ═══════════════════════════════════════════
             const CacheManager = {
                 guardar(deporteId, partidos) {
                     const anteriores = STATE.marcadoresAnteriores[deporteId] || {};
@@ -648,9 +618,6 @@
                 },
             };
 
-            // ═══════════════════════════════════════════
-            // CONSTRUCTOR DE UI
-            // ═══════════════════════════════════════════
             const UIBuilder = {
                 construirNavegacion() {
                     DOM.nav.innerHTML = CONFIG.DEPORTES.map(d => `
@@ -837,9 +804,6 @@
                 },
             };
 
-            // ═══════════════════════════════════════════
-            // CINTILLO / TICKER (con fallback a partidos anteriores)
-            // ═══════════════════════════════════════════
             const Ticker = {
                 actualizar() {
                     const enVivo = [];
@@ -858,7 +822,6 @@
                     }
 
                     if (enVivo.length === 0) {
-                        // Buscar partidos finalizados (anteriores) de cualquier caché
                         const finalizados = [];
                         for (const [deporteId, entry] of Object.entries(STATE.cache)) {
                             const deporte = Util.obtenerDeporte(deporteId);
@@ -875,7 +838,6 @@
                         }
 
                         if (finalizados.length > 0) {
-                            // Mostrar últimos resultados
                             DOM.tickerLabel.innerHTML = '<i class="fa-solid fa-clock-rotate-left"></i> RESULTADOS';
                             const items = finalizados.map(p => `
                                 <span class="ticker-item">
@@ -893,7 +855,6 @@
                             return;
                         }
 
-                        // Si tampoco hay finalizados, mostrar mensaje genérico
                         DOM.tickerLabel.innerHTML = '<i class="fa-solid fa-bolt"></i> EN VIVO';
                         DOM.tickerTrack.innerHTML = `
                             <span class="ticker-item">
@@ -904,7 +865,6 @@
                         return;
                     }
 
-                    // Si hay en vivo, mantener etiqueta original
                     DOM.tickerLabel.innerHTML = '<i class="fa-solid fa-bolt"></i> EN VIVO';
                     const items = enVivo.map(p => `
                         <span class="ticker-item">
@@ -922,9 +882,6 @@
                 },
             };
 
-            // ═══════════════════════════════════════════
-            // APLICACIÓN PRINCIPAL
-            // ═══════════════════════════════════════════
             const App = {
                 async cargarDeporte(deporteId, forzar = false) {
                     const deporte = Util.obtenerDeporte(deporteId);
