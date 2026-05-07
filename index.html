@@ -137,7 +137,7 @@
         }
         .ticker-track {
             display: flex;
-            animation: tickerScroll 25s linear infinite; /* Más rápido */
+            animation: tickerScroll 25s linear infinite;
             white-space: nowrap;
             gap: 4px;
             align-items: center;
@@ -236,7 +236,6 @@
             width: 18px;
             text-align: center;
         }
-        /* Sub-navegación */
         .sub-nav {
             display: flex;
             gap: 4px;
@@ -362,8 +361,8 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 14px 18px;
-            margin-bottom: 10px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
             cursor: pointer;
             transition: all var(--transition);
             position: relative;
@@ -387,20 +386,22 @@
                 box-shadow: none;
             }
         }
-        /* Nuevo diseño de fila de equipos con logos y estrellas */
+        /* Nuevo diseño centrado */
         .match-main {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content: space-between;
-            gap: 12px;
+            justify-content: center;
+            gap: 20px;
+            text-align: center;
         }
         .team-block {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex: 1;
-            min-width: 0;
+            min-width: 140px;
+            justify-content: center;
         }
         .team-block.home {
             justify-content: flex-end;
@@ -409,23 +410,24 @@
             justify-content: flex-start;
         }
         .team-logo {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
             flex-shrink: 0;
         }
         .team-name {
             font-weight: 600;
-            font-size: 0.92rem;
+            font-size: 1rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            max-width: 160px;
         }
         .fav-star-btn {
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #ccc;
             transition: all 0.2s;
             padding: 0 4px;
@@ -441,14 +443,14 @@
             color: var(--gold);
         }
         .score-box {
-            font-size: 1.45rem;
+            font-size: 1.5rem;
             font-weight: 800;
             letter-spacing: -1px;
             text-align: center;
-            min-width: 72px;
+            min-width: 90px;
             background: var(--surface2);
-            border-radius: 10px;
-            padding: 7px 4px;
+            border-radius: 12px;
+            padding: 8px 12px;
             color: var(--text);
             transition: all 0.3s;
             flex-shrink: 0;
@@ -472,11 +474,11 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.4px;
-            padding: 5px 11px;
+            padding: 5px 12px;
             border-radius: 20px;
             white-space: nowrap;
             text-align: center;
-            min-width: 60px;
+            min-width: 70px;
             flex-shrink: 0;
         }
         .state-badge.live {
@@ -493,13 +495,14 @@
         }
         .match-detail {
             display: none;
-            margin-top: 12px;
-            padding-top: 12px;
+            margin-top: 14px;
+            padding-top: 14px;
             border-top: 1px solid var(--border);
             font-size: 0.78rem;
             color: var(--text2);
             gap: 10px;
             flex-wrap: wrap;
+            justify-content: center;
         }
         .match-card.expanded .match-detail {
             display: flex;
@@ -518,7 +521,6 @@
             color: var(--accent);
             font-size: 0.75rem;
         }
-        /* Estadísticas dentro del detalle */
         .stats-mini {
             width: 100%;
             margin-top: 6px;
@@ -563,7 +565,6 @@
             color: var(--text2);
             min-width: 50px;
         }
-        /* Tabla de posiciones */
         .standings-table {
             width: 100%;
             border-collapse: collapse;
@@ -617,7 +618,6 @@
             font-weight: 800;
             text-align: center;
         }
-        /* Noticias */
         .news-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -758,37 +758,31 @@
                 padding: 10px;
             }
             .match-main {
-                flex-wrap: wrap;
-                justify-content: center;
+                gap: 12px;
+                flex-direction: column;
+            }
+            .team-block {
+                justify-content: center !important;
+                width: 100%;
             }
             .team-block.home, .team-block.away {
-                flex: 1 0 40%;
-                justify-content: flex-start;
-            }
-            .team-block.home {
-                order: 1;
-            }
-            .score-box {
-                order: 2;
-            }
-            .team-block.away {
-                order: 3;
-            }
-            .state-badge {
-                order: 4;
-                margin-top: 6px;
+                justify-content: center;
             }
             .team-name {
-                font-size: 0.8rem;
+                font-size: 0.9rem;
+                max-width: 200px;
+            }
+            .team-logo {
+                width: 28px;
+                height: 28px;
             }
             .score-box {
-                font-size: 1.2rem;
-                min-width: 58px;
-                padding: 5px 2px;
+                font-size: 1.3rem;
+                min-width: 80px;
+                padding: 6px 10px;
             }
-            .filter-group {
-                margin-left: 0;
-                margin-top: 6px;
+            .state-badge {
+                margin-top: 4px;
             }
             .standings-table {
                 font-size: 0.68rem;
@@ -808,23 +802,21 @@
                 flex: 1 1 100%;
             }
         }
-        @media (max-width: 420px) {
-            .sport-tab {
-                padding: 6px 10px;
-                font-size: 0.68rem;
-            }
-            .match-card {
-                padding: 10px 8px;
-            }
+        @media (max-width: 480px) {
             .team-name {
-                font-size: 0.72rem;
+                font-size: 0.8rem;
+                max-width: 140px;
+            }
+            .team-logo {
+                width: 24px;
+                height: 24px;
             }
             .score-box {
-                font-size: 1rem;
-                min-width: 48px;
+                font-size: 1.1rem;
+                min-width: 70px;
             }
-            .ticker-track {
-                animation-duration: 18s; /* incluso más rápido en móvil */
+            .fav-star-btn {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -943,7 +935,6 @@
                 },
             };
 
-            // ──────────────────────── FAVORITOS ────────────────────────
             const FavManager = {
                 cargar() {
                     try {
@@ -956,7 +947,7 @@
                 guardar() {
                     try {
                         localStorage.setItem('td_favoritos', JSON.stringify(STATE.favoritos));
-                    } catch (e) { /* quota excedida, ignorar */ }
+                    } catch (e) { }
                 },
                 toggle(deporteId, equipoNombre) {
                     const key = `${deporteId}|||${equipoNombre}`;
@@ -984,7 +975,6 @@
                 },
             };
 
-            // ──────────────────────── API ────────────────────────
             const API = {
                 async obtenerDatos(deporte) {
                     const url = `${CONFIG.API_BASE}/${deporte.sport}/${deporte.league}/scoreboard?lang=es&limit=60`;
@@ -1032,7 +1022,6 @@
                             claseEstado = 'finished';
                             textoEstado = 'Finalizado';
                         }
-                        // Obtener logos
                         const localLogo = local.team?.logos?.[0]?.href || local.team?.logo || '';
                         const visitanteLogo = visitante.team?.logos?.[0]?.href || visitante.team?.logo || '';
                         return {
@@ -1058,7 +1047,7 @@
                         };
                     }).filter(Boolean);
                 },
-                procesarStandings(data) { /* igual que antes, ya incluía logos */ 
+                procesarStandings(data) {
                     const grupos = [];
                     if (data.children) {
                         for (const child of data.children) {
@@ -1096,7 +1085,7 @@
                     }
                     return grupos;
                 },
-                procesarNoticias(data) { /* sin cambios */ 
+                procesarNoticias(data) {
                     if (!data.articles || !data.articles.length) return [];
                     return data.articles.map(art => ({
                         titulo: art.headline || 'Sin título',
@@ -1110,7 +1099,6 @@
                 },
             };
 
-            // ──────────────────────── CACHE MANAGER (sin cambios) ────────────────────────
             const CacheManager = {
                 guardar(deporteId, partidos) {
                     const anteriores = STATE.marcadoresAnteriores[deporteId] || {};
@@ -1144,9 +1132,8 @@
                 obtenerStatsEvento(eventId) { return STATE.cacheStats[eventId] || null; },
             };
 
-            // ──────────────────────── UI BUILDER (modificado para logos y estrellas laterales) ────────────────────────
             const UIBuilder = {
-                construirNavegacion() { /* igual */ 
+                construirNavegacion() {
                     const tabs = CONFIG.DEPORTES.map(d => `
                         <button class="sport-tab${d.id === STATE.deporteActivo ? ' active' : ''}"
                                 data-id="${d.id}" title="${d.nombre} · ${d.pais}">
@@ -1183,7 +1170,7 @@
                     const activo = DOM.nav.querySelector(`[data-id="${STATE.deporteActivo}"]`);
                     if (activo) activo.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                 },
-                construirPaneles() { /* igual pero con la estructura de subpaneles, sin cambios relevantes */ 
+                construirPaneles() {
                     DOM.main.innerHTML = CONFIG.DEPORTES.map(d => `
                         <div class="panel${d.id === STATE.deporteActivo ? ' active' : ''}" id="panel-${d.id}">
                             <div class="panel-header">
@@ -1211,7 +1198,6 @@
                             <div class="sub-content" id="sub-noticias-${d.id}"><div class="loader" id="loader-news-${d.id}"><div class="spinner"></div></div><div id="noticias-${d.id}"></div></div>
                         </div>
                     `).join('');
-                    // Panel favoritos
                     const favPanel = document.createElement('div');
                     favPanel.className = 'panel';
                     favPanel.id = 'panel-__favoritos__';
@@ -1221,7 +1207,6 @@
                         <div class="sub-content active" id="sub-fav-partidos-__favoritos__"><div class="summary-bar" id="summary-__favoritos__"></div><div class="loader" id="loader-__favoritos__" style="display:none;"><div class="spinner"></div></div><div id="partidos-__favoritos__"></div></div>
                     `;
                     DOM.main.appendChild(favPanel);
-                    // Event listeners sub-tabs
                     DOM.main.querySelectorAll('.sub-tab').forEach(btn => {
                         btn.addEventListener('click', () => {
                             const subtab = btn.dataset.subtab;
@@ -1234,7 +1219,6 @@
                             else if (subtab === 'fav-partidos') App.renderizarFavoritos();
                         });
                     });
-                    // filtros
                     DOM.main.querySelectorAll('.filter-btn').forEach(btn => {
                         btn.addEventListener('click', (e) => {
                             const panelId = e.target.closest('.filter-group').dataset.panel;
@@ -1247,7 +1231,6 @@
                             if (cacheEntry) this.renderizarPartidos(panelId, cacheEntry.partidos, cacheEntry.cambiados || new Set());
                         });
                     });
-                    // click en cards
                     DOM.main.addEventListener('click', (e) => {
                         const card = e.target.closest('.match-card');
                         if (card && !e.target.closest('.fav-star-btn')) {
@@ -1367,7 +1350,7 @@
                         `;
                     }).join('');
                 },
-                renderizarStandings(deporteId, grupos) { /* sin cambios */ 
+                renderizarStandings(deporteId, grupos) {
                     const contenedor = document.getElementById('standings-' + deporteId);
                     const loader = document.getElementById('loader-standings-' + deporteId);
                     if (loader) loader.style.display = 'none';
@@ -1390,7 +1373,7 @@
                     });
                     contenedor.innerHTML = html;
                 },
-                renderizarNoticias(deporteId, noticias) { /* sin cambios */ 
+                renderizarNoticias(deporteId, noticias) {
                     const contenedor = document.getElementById('noticias-' + deporteId);
                     const loader = document.getElementById('loader-news-' + deporteId);
                     if (loader) loader.style.display = 'none';
@@ -1403,7 +1386,7 @@
                         return `<a href="${n.url}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;"><div class="news-card">${imagenHtml}<div class="news-content"><div class="news-title">${Util.escaparHTML(n.titulo)}</div><div class="news-meta"><span><i class="fa-solid fa-clock"></i> ${Util.formatearFecha(n.fecha)}</span><span><i class="fa-solid fa-tag"></i> ${Util.escaparHTML(n.fuente)}</span>${n.categoria ? `<span>· ${Util.escaparHTML(n.categoria)}</span>` : ''}</div>${n.descripcion ? `<div class="news-desc">${Util.escaparHTML(Util.truncar(n.descripcion, 180))}</div>` : ''}</div></div></a>`;
                     }).join('');
                 },
-                renderizarStatsEnChip(eventId, statsData, cardElement) { /* sin cambios */ 
+                renderizarStatsEnChip(eventId, statsData, cardElement) {
                     const chip = cardElement?.querySelector(`#stats-chip-${eventId}`);
                     if (!chip || !statsData) { if (chip) chip.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Sin estadísticas'; return; }
                     try {
@@ -1429,7 +1412,7 @@
                         chip.style.width = '100%';
                     } catch (e) { chip.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Estadísticas no disponibles'; }
                 },
-                mostrarErrorStandings(deporteId, mensaje) { /* igual */ 
+                mostrarErrorStandings(deporteId, mensaje) {
                     const contenedor = document.getElementById('standings-' + deporteId);
                     const loader = document.getElementById('loader-standings-' + deporteId);
                     if (loader) loader.style.display = 'none';
@@ -1449,7 +1432,6 @@
                 },
             };
 
-            // Ticker más rápido (ya ajustado en CSS)
             const Ticker = {
                 actualizar() {
                     const enVivo = [];
@@ -1511,7 +1493,7 @@
                         else UIBuilder.mostrarError(deporteId, 'No se pudieron cargar los datos. Verifica tu conexión.');
                     }
                 },
-                async cargarStandings(deporteId) { /* igual */ 
+                async cargarStandings(deporteId) {
                     if (deporteId === '__favoritos__') return;
                     const deporte = Util.obtenerDeporte(deporteId);
                     if (!deporte || !deporte.tieneStandings) return;
@@ -1522,7 +1504,7 @@
                     try { const data = await API.obtenerStandings(deporte); const grupos = API.procesarStandings(data); CacheManager.guardarStandings(deporteId, grupos); UIBuilder.renderizarStandings(deporteId, grupos); } 
                     catch (err) { if (cacheEntry && cacheEntry.grupos) UIBuilder.renderizarStandings(deporteId, cacheEntry.grupos); else UIBuilder.mostrarErrorStandings(deporteId, 'No se pudo cargar la tabla.'); }
                 },
-                async cargarNoticias(deporteId) { /* igual */ 
+                async cargarNoticias(deporteId) {
                     if (deporteId === '__favoritos__') return;
                     const deporte = Util.obtenerDeporte(deporteId);
                     if (!deporte) return;
@@ -1533,7 +1515,7 @@
                     try { const data = await API.obtenerNoticias(deporte); const noticias = API.procesarNoticias(data); CacheManager.guardarNoticias(deporteId, noticias); UIBuilder.renderizarNoticias(deporteId, noticias); } 
                     catch (err) { if (cacheEntry && cacheEntry.noticias) UIBuilder.renderizarNoticias(deporteId, cacheEntry.noticias); else UIBuilder.mostrarErrorNoticias(deporteId, 'No se pudieron cargar las noticias.'); }
                 },
-                async cargarStatsEvento(deporteId, eventId, cardElement) { /* igual */ 
+                async cargarStatsEvento(deporteId, eventId, cardElement) {
                     const chip = cardElement?.querySelector(`#stats-chip-${eventId}`);
                     if (!chip || chip.querySelector('.stats-mini')) return;
                     const cacheEntry = CacheManager.obtenerStatsEvento(eventId);
@@ -1543,7 +1525,7 @@
                     try { const data = await API.obtenerResumenEvento(deporte, eventId); CacheManager.guardarStatsEvento(eventId, data); UIBuilder.renderizarStatsEnChip(eventId, data, cardElement); } 
                     catch (err) { if (chip) chip.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Estadísticas no disponibles'; }
                 },
-                renderizarFavoritos() { /* similar a renderizarPartidos pero agregando logos y estrellas laterales */ 
+                renderizarFavoritos() {
                     const contenedor = document.getElementById('partidos-__favoritos__');
                     const summaryBar = document.getElementById('summary-__favoritos__');
                     const favEquipos = FavManager.obtenerEquiposFavoritos();
