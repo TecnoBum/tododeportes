@@ -7,29 +7,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg: #0b1120;
-            --surface: #1a2332;
-            --surface2: #222d3d;
-            --surface3: #2a3749;
-            --text: #e8edf2;
-            --text2: #8b9db5;
+            /* ── Modo claro ─────────────── */
+            --bg: #f4f6f9;
+            --surface: #ffffff;
+            --surface2: #f0f2f5;
+            --surface3: #e2e6eb;
+            --text: #1a1a2e;
+            --text2: #5a6470;
             --accent: #3b82f6;
             --accent2: #2563eb;
-            --live: #ef4444;
-            --live-bg: #7f1d1d;
-            --live-text: #fca5a5;
-            --fin: #22c55e;
-            --fin-bg: #14532d;
-            --fin-text: #86efac;
-            --sched: #f59e0b;
-            --sched-bg: #422006;
-            --sched-text: #fcd34d;
-            --border: #2d3b4f;
+            --live: #e11d48;
+            --live-bg: #ffe4e6;
+            --live-text: #9f1239;
+            --fin: #0d9488;
+            --fin-bg: #ccfbf1;
+            --fin-text: #115e59;
+            --sched: #d97706;
+            --sched-bg: #fef3c7;
+            --sched-text: #92400e;
+            --border: #dde1e6;
             --radius: 14px;
-            --shadow: 0 8px 30px rgba(0,0,0,0.5);
+            --shadow: 0 8px 24px rgba(0,0,0,0.08);
             --transition: 0.2s ease;
-            --ticker-bg: #111a28;
-            --ticker-text: #e2e8f0;
+            --ticker-bg: #e9ecf0;
+            --ticker-text: #1e293b;
         }
 
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -90,8 +91,8 @@
             animation: pulse 1.8s ease-in-out infinite;
         }
         @keyframes pulse {
-            0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(239,68,68,0.6); }
-            50% { opacity:0.5; box-shadow: 0 0 0 10px rgba(239,68,68,0); }
+            0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(225,29,72,0.7); }
+            50% { opacity:0.5; box-shadow: 0 0 0 10px rgba(225,29,72,0); }
         }
 
         /* ── Cintillo / Ticker ──────────── */
@@ -145,6 +146,7 @@
             border-right: 1px solid var(--border);
             flex-shrink: 0;
             letter-spacing: -0.2px;
+            color: var(--ticker-text);
         }
         .ticker-item .score-mini {
             color: var(--live);
@@ -189,7 +191,7 @@
             flex-shrink: 0;
             letter-spacing: -0.2px;
         }
-        .sport-tab:hover { background: var(--surface2); color: #fff; }
+        .sport-tab:hover { background: var(--surface2); color: #000; }
         .sport-tab.active {
             background: var(--accent);
             color: #fff;
@@ -226,6 +228,7 @@
             gap: 10px;
             font-size: 1.15rem;
             font-weight: 700;
+            color: var(--text);
         }
         .section-title i { color: var(--accent); font-size: 1.3rem; }
         .filter-group {
@@ -322,16 +325,16 @@
             background: var(--surface2);
             border-radius: 10px;
             padding: 7px 4px;
-            color: #fff;
+            color: var(--text);
             transition: all 0.3s;
         }
         .score-box.live-score {
-            background: #1e1b2e;
+            background: #ffe4e6;
             color: var(--live);
             animation: pulseScore 2s ease-in-out infinite;
         }
         @keyframes pulseScore {
-            0%,100% { color:#fff; }
+            0%,100% { color:#1a1a2e; }
             50% { color:var(--live); }
         }
         .state-badge {
@@ -369,6 +372,7 @@
             align-items: center;
             gap: 6px;
             font-weight: 500;
+            color: var(--text);
         }
         .detail-chip i { color: var(--accent); font-size: 0.75rem; }
 
@@ -435,7 +439,7 @@
     <!-- ── Cabecera ──────────────────────── -->
     <header class="header">
         <div class="brand">
-            <i class="fa-solid fa-trophy"></i>
+            <!-- Icono de copa eliminado según la solicitud -->
             <span>Todo Deportes</span>
         </div>
         <div class="header-right">
@@ -448,7 +452,7 @@
 
     <!-- ── Cintillo de datos en tiempo real ─ -->
     <div class="ticker-wrap" id="tickerWrap">
-        <span class="ticker-label"><i class="fa-solid fa-bolt"></i> EN VIVO</span>
+        <span class="ticker-label" id="tickerLabel"><i class="fa-solid fa-bolt"></i> EN VIVO</span>
         <div class="ticker-track" id="tickerTrack"></div>
     </div>
 
@@ -469,12 +473,13 @@
                 INTERVALO_TICKER: 20000,
                 API_BASE: 'https://site.api.espn.com/apis/site/v2/sports',
                 DEPORTES: [
+                    // MLB movida a la primera posición
+                    { id: 'baseball-mlb', nombre: 'MLB', icon: 'fa-baseball', sport: 'baseball',
+                        league: 'mlb', pais: 'EE.UU.' },
                     { id: 'football-nfl', nombre: 'NFL', icon: 'fa-football', sport: 'football',
                         league: 'nfl', pais: 'EE.UU.' },
                     { id: 'basketball-nba', nombre: 'NBA', icon: 'fa-basketball', sport: 'basketball',
                         league: 'nba', pais: 'EE.UU.' },
-                    { id: 'baseball-mlb', nombre: 'MLB', icon: 'fa-baseball', sport: 'baseball',
-                        league: 'mlb', pais: 'EE.UU.' },
                     { id: 'hockey-nhl', nombre: 'NHL', icon: 'fa-hockey-puck', sport: 'hockey',
                     league: 'nhl', pais: 'EE.UU.' },
                     { id: 'soccer-epl', nombre: 'Premier League', icon: 'fa-futbol', sport: 'soccer',
@@ -509,10 +514,10 @@
             // ═══════════════════════════════════════════
             const STATE = {
                 deporteActivo: CONFIG.DEPORTES[0].id,
-                filtroActivo: 'todos', // 'todos' | 'en-vivo' | 'finalizados'
-                cache: {}, // { [deporteId]: { partidos, timestamp } }
-                tickerData: [], // Partidos en vivo para el cintillo
-                marcadoresAnteriores: {}, // Para detectar cambios
+                filtroActivo: 'todos',
+                cache: {},
+                tickerData: [],
+                marcadoresAnteriores: {},
             };
 
             // ═══════════════════════════════════════════
@@ -523,6 +528,7 @@
                 main: document.getElementById('mainContent'),
                 tickerTrack: document.getElementById('tickerTrack'),
                 tickerWrap: document.getElementById('tickerWrap'),
+                tickerLabel: document.getElementById('tickerLabel'),
                 liveTime: document.getElementById('liveTime'),
             };
 
@@ -548,12 +554,13 @@
             };
 
             // ═══════════════════════════════════════════
-            // API
+            // API (con idioma español)
             // ═══════════════════════════════════════════
             const API = {
                 async obtenerDatos(deporte) {
+                    // Se añade parámetro lang=es para recibir datos en español
                     const url =
-                        `${CONFIG.API_BASE}/${deporte.sport}/${deporte.league}/scoreboard?limit=60`;
+                        `${CONFIG.API_BASE}/${deporte.sport}/${deporte.league}/scoreboard?lang=es&limit=60`;
                     const resp = await fetch(url);
                     if (!resp.ok) throw new Error(`Error HTTP ${resp.status}`);
                     return await resp.json();
@@ -598,7 +605,6 @@
                             shortDetail,
                             clock,
                             period,
-                            // Datos extra
                             localRecord: local.records?.[0]?.summary || '',
                             visitanteRecord: visitante.records?.[0]?.summary || '',
                             transmision: comp.broadcasts?.[0]?.names?.[0] || '',
@@ -613,21 +619,17 @@
             // ═══════════════════════════════════════════
             const CacheManager = {
                 guardar(deporteId, partidos) {
-                    // Detectar cambios en marcadores
                     const anteriores = STATE.marcadoresAnteriores[deporteId] || {};
                     const nuevos = {};
                     partidos.forEach(p => {
                         nuevos[p.id] = `${p.scoreLocal}-${p.scoreVisitante}`;
                     });
-
-                    // Comparar para flash
                     const cambiados = new Set();
                     for (const [id, marcador] of Object.entries(nuevos)) {
                         if (anteriores[id] && anteriores[id] !== marcador) {
                             cambiados.add(id);
                         }
                     }
-
                     STATE.marcadoresAnteriores[deporteId] = nuevos;
                     STATE.cache[deporteId] = {
                         partidos,
@@ -704,21 +706,14 @@
                         </div>
                     `).join('');
 
-                    // Event listeners para filtros
                     DOM.main.querySelectorAll('.filter-btn').forEach(btn => {
                         btn.addEventListener('click', (e) => {
-                            const panelId = e.target.closest('.filter-group').dataset
-                                .panel;
+                            const panelId = e.target.closest('.filter-group').dataset.panel;
                             const filtro = btn.dataset.filtro;
                             STATE.filtroActivo = filtro;
-
-                            // Actualizar botones activos dentro de ese panel
                             const group = e.target.closest('.filter-group');
-                            group.querySelectorAll('.filter-btn').forEach(b => b
-                                .classList.remove('active'));
+                            group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                             btn.classList.add('active');
-
-                            // Re-renderizar con filtro
                             const cacheEntry = STATE.cache[panelId];
                             if (cacheEntry) {
                                 this.renderizarPartidos(panelId, cacheEntry.partidos,
@@ -727,7 +722,6 @@
                         });
                     });
 
-                    // Delegación de eventos para expandir tarjetas
                     DOM.main.addEventListener('click', (e) => {
                         const card = e.target.closest('.match-card');
                         if (card) {
@@ -741,11 +735,9 @@
                     const panel = document.getElementById('panel-' + id);
                     if (panel) {
                         panel.classList.add('active');
-                        // Resetear filtro visual
                         const group = panel.querySelector('.filter-group');
                         if (group) {
-                            group.querySelectorAll('.filter-btn').forEach(b => b.classList
-                                .remove('active'));
+                            group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                             const todosBtn = group.querySelector('[data-filtro="todos"]');
                             if (todosBtn) todosBtn.classList.add('active');
                         }
@@ -760,7 +752,6 @@
 
                     if (loader) loader.style.display = 'none';
 
-                    // Aplicar filtro
                     let filtrados = partidos;
                     if (STATE.filtroActivo === 'en-vivo') {
                         filtrados = partidos.filter(p => p.claseEstado === 'live');
@@ -768,7 +759,6 @@
                         filtrados = partidos.filter(p => p.claseEstado === 'finished');
                     }
 
-                    // Resumen
                     const enVivo = partidos.filter(p => p.claseEstado === 'live').length;
                     const finalizados = partidos.filter(p => p.claseEstado === 'finished').length;
                     const programados = partidos.filter(p => p.claseEstado === 'scheduled').length;
@@ -848,11 +838,10 @@
             };
 
             // ═══════════════════════════════════════════
-            // CINTILLO / TICKER
+            // CINTILLO / TICKER (con fallback a partidos anteriores)
             // ═══════════════════════════════════════════
             const Ticker = {
                 actualizar() {
-                    // Recopilar partidos en vivo de toda la caché
                     const enVivo = [];
                     for (const [deporteId, entry] of Object.entries(STATE.cache)) {
                         const deporte = Util.obtenerDeporte(deporteId);
@@ -868,9 +857,44 @@
                             });
                     }
 
-                    STATE.tickerData = enVivo;
+                    if (enVivo.length === 0) {
+                        // Buscar partidos finalizados (anteriores) de cualquier caché
+                        const finalizados = [];
+                        for (const [deporteId, entry] of Object.entries(STATE.cache)) {
+                            const deporte = Util.obtenerDeporte(deporteId);
+                            if (!deporte || !entry || !entry.partidos) continue;
+                            entry.partidos
+                                .filter(p => p.claseEstado === 'finished')
+                                .forEach(p => {
+                                    finalizados.push({
+                                        ...p,
+                                        deporteNombre: deporte.nombre,
+                                        deporteIcon: deporte.icon,
+                                    });
+                                });
+                        }
 
-                    if (!enVivo.length) {
+                        if (finalizados.length > 0) {
+                            // Mostrar últimos resultados
+                            DOM.tickerLabel.innerHTML = '<i class="fa-solid fa-clock-rotate-left"></i> RESULTADOS';
+                            const items = finalizados.map(p => `
+                                <span class="ticker-item">
+                                    <i class="fa-solid ${p.deporteIcon}"></i>
+                                    <span>${p.deporteNombre}</span>
+                                    <span class="dot-sep"></span>
+                                    <span>${Util.escaparHTML(p.local)}</span>
+                                    <span class="score-mini">${p.scoreLocal}-${p.scoreVisitante}</span>
+                                    <span>${Util.escaparHTML(p.visitante)}</span>
+                                    <span class="dot-sep"></span>
+                                    <span>Finalizado</span>
+                                </span>
+                            `).join('');
+                            DOM.tickerTrack.innerHTML = items + items;
+                            return;
+                        }
+
+                        // Si tampoco hay finalizados, mostrar mensaje genérico
+                        DOM.tickerLabel.innerHTML = '<i class="fa-solid fa-bolt"></i> EN VIVO';
                         DOM.tickerTrack.innerHTML = `
                             <span class="ticker-item">
                                 <span class="dot-sep"></span> No hay partidos en vivo ahora
@@ -880,7 +904,8 @@
                         return;
                     }
 
-                    // Duplicar para animación continua sin saltos
+                    // Si hay en vivo, mantener etiqueta original
+                    DOM.tickerLabel.innerHTML = '<i class="fa-solid fa-bolt"></i> EN VIVO';
                     const items = enVivo.map(p => `
                         <span class="ticker-item">
                             <i class="fa-solid ${p.deporteIcon}"></i>
@@ -893,8 +918,7 @@
                             <span>${p.textoEstado}</span>
                         </span>
                     `).join('');
-
-                    DOM.tickerTrack.innerHTML = items + items; // Duplicado para scroll infinito
+                    DOM.tickerTrack.innerHTML = items + items;
                 },
             };
 
@@ -909,15 +933,12 @@
                     const cacheEntry = CacheManager.obtener(deporteId);
                     const loader = document.getElementById('loader-' + deporteId);
 
-                    // Usar caché si es válido y no se fuerza recarga
                     if (!forzar && CacheManager.esValido(deporteId)) {
-                        UIBuilder.renderizarPartidos(deporteId, cacheEntry.partidos, cacheEntry
-                            .cambiados || new Set());
+                        UIBuilder.renderizarPartidos(deporteId, cacheEntry.partidos, cacheEntry.cambiados || new Set());
                         if (loader) loader.style.display = 'none';
                         return;
                     }
 
-                    // Mostrar loader solo si no hay caché previo
                     if (!cacheEntry || forzar) {
                         if (loader) loader.style.display = 'flex';
                         const contenedor = document.getElementById('partidos-' + deporteId);
@@ -943,16 +964,12 @@
                 },
 
                 refrescarTodo() {
-                    // Refrescar deporte activo siempre
                     this.cargarDeporte(STATE.deporteActivo, true);
-
-                    // Refrescar otros en segundo plano si su caché expiró
                     CONFIG.DEPORTES.forEach(d => {
                         if (d.id !== STATE.deporteActivo && !CacheManager.esValido(d.id)) {
                             this.cargarDeporte(d.id, true);
                         }
                     });
-
                     Ticker.actualizar();
                     DOM.liveTime.textContent = `Actualizado: ${Util.formatearHora()}`;
                 },
@@ -962,9 +979,7 @@
                     UIBuilder.construirPaneles();
                     DOM.liveTime.textContent = `Actualizado: ${Util.formatearHora()}`;
 
-                    // Carga inicial
                     await this.cargarDeporte(STATE.deporteActivo);
-                    // Precargar otros deportes en segundo plano
                     setTimeout(() => {
                         CONFIG.DEPORTES.forEach(d => {
                             if (d.id !== STATE.deporteActivo) {
@@ -973,22 +988,14 @@
                         });
                     }, 2000);
 
-                    // Ciclo de refresco
                     setInterval(() => this.refrescarTodo(), CONFIG.INTERVALO_REFRESCO);
-
-                    // Actualizar hora cada segundo
                     setInterval(() => {
                         DOM.liveTime.textContent = `Actualizado: ${Util.formatearHora()}`;
                     }, 1000);
-
-                    // Refrescar ticker más frecuentemente
                     setInterval(() => Ticker.actualizar(), CONFIG.INTERVALO_TICKER);
                 },
             };
 
-            // ═══════════════════════════════════════════
-            // API PÚBLICA GLOBAL
-            // ═══════════════════════════════════════════
             window.TodoDeportes = {
                 reintentar(deporteId) {
                     const loader = document.getElementById('loader-' + deporteId);
@@ -1001,7 +1008,6 @@
                 },
             };
 
-            // Arrancar
             document.addEventListener('DOMContentLoaded', () => App.iniciar());
         })();
     </script>
