@@ -47,7 +47,6 @@
             min-height: 100vh;
             line-height: 1.4;
         }
-        /* Header mejorado para móvil */
         .header {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -71,8 +70,7 @@
             letter-spacing: -0.3px;
         }
         .brand i {
-            color: var(--accent);
-            font-size: 1.3rem;
+            display: none; /* remove icon */
         }
         .header-right {
             display: flex;
@@ -101,7 +99,6 @@
             0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.6); }
             50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(225, 29, 72, 0); }
         }
-        /* Ticker mejorado para móvil */
         .ticker-wrap {
             background: var(--ticker-bg);
             border-bottom: 1px solid var(--border);
@@ -161,7 +158,6 @@
             color: var(--live);
             font-weight: 800;
         }
-        /* Navegación de deportes: táctil + scroll suave */
         .sport-nav {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -179,14 +175,6 @@
         }
         .sport-nav::-webkit-scrollbar {
             height: 3px;
-        }
-        .sport-nav::-webkit-scrollbar-track {
-            background: var(--surface2);
-            border-radius: 4px;
-        }
-        .sport-nav::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 4px;
         }
         .sport-tab {
             display: inline-flex;
@@ -225,7 +213,6 @@
             width: 20px;
             text-align: center;
         }
-        /* Sub navegación (Partidos / Tabla / Noticias) */
         .sub-nav {
             display: flex;
             gap: 8px;
@@ -263,7 +250,6 @@
             color: #fff;
             border-color: var(--accent);
         }
-        /* Main y paneles */
         .main {
             max-width: 1000px;
             margin: 0 auto;
@@ -340,7 +326,6 @@
             border-radius: 50%;
             display: inline-block;
         }
-        /* Tarjetas de partido - versión móvil optimizada */
         .match-card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -363,7 +348,6 @@
             0% { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); }
             100% { border-color: var(--border); box-shadow: none; }
         }
-        /* Layout de marcador centrado pero adaptado */
         .match-main {
             display: flex;
             flex-wrap: wrap;
@@ -400,7 +384,6 @@
             white-space: nowrap;
             max-width: 150px;
         }
-        /* Estrella favoritos: área táctil amplia */
         .fav-star-btn {
             background: none;
             border: none;
@@ -469,7 +452,6 @@
             background: var(--sched-bg);
             color: var(--sched-text);
         }
-        /* Detalles expandidos */
         .match-detail {
             display: none;
             margin-top: 16px;
@@ -529,7 +511,6 @@
             min-width: 28px;
             text-align: center;
         }
-        /* Tablas y noticias adaptadas */
         .standings-table {
             width: 100%;
             border-collapse: collapse;
@@ -569,85 +550,45 @@
             font-size: 0.9rem;
             margin-bottom: 6px;
         }
-        /* Mobile First mejoras */
-        @media (max-width: 768px) {
-            .header {
-                padding: 8px 12px;
-                top: 0;
-            }
-            .ticker-wrap {
-                top: 56px;
-            }
-            .sport-nav {
-                top: 96px;
-                padding: 6px 10px;
-                gap: 6px;
-            }
-            .sport-tab {
-                padding: 8px 14px;
-                font-size: 0.8rem;
-            }
-            .team-name {
-                font-size: 0.85rem;
-                max-width: 130px;
-            }
-            .team-logo {
-                width: 28px;
-                height: 28px;
-            }
-            .score-box {
-                font-size: 1.4rem;
-                min-width: 80px;
-                padding: 6px 10px;
-            }
-            .state-badge {
-                font-size: 0.65rem;
-                padding: 4px 10px;
-                min-width: 70px;
-            }
-            .match-main {
-                gap: 8px;
-            }
-            .team-block {
-                gap: 5px;
-                min-width: 100px;
-            }
-            .fav-star-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-            .sub-tab {
-                padding: 8px 16px;
-                font-size: 0.75rem;
-            }
-            .filter-btn {
-                padding: 6px 14px;
-                font-size: 0.7rem;
-            }
-        }
+        /* Mobile: estrella sobre el nombre del equipo */
         @media (max-width: 600px) {
             .match-main {
                 flex-direction: column;
                 align-items: stretch;
             }
             .team-block {
-                justify-content: space-between !important;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
                 width: 100%;
+                min-width: unset;
             }
             .team-block.home, .team-block.away {
-                justify-content: space-between;
+                justify-content: center;
+            }
+            .fav-star-btn {
+                order: -1;  /* estrella arriba del nombre */
+                margin-bottom: 2px;
+                width: 36px;
+                height: 36px;
+            }
+            .team-logo {
+                width: 28px;
+                height: 28px;
+                margin: 4px 0;
             }
             .team-name {
                 white-space: normal;
                 word-break: break-word;
-                text-align: left;
+                text-align: center;
                 max-width: 180px;
                 font-size: 0.9rem;
             }
             .score-box {
                 order: 1;
-                margin: 6px auto;
+                margin: 8px auto;
                 width: fit-content;
             }
             .state-badge {
@@ -660,40 +601,25 @@
             .match-main .team-block:last-child {
                 order: 3;
             }
-            .ticker-item {
-                font-size: 0.7rem;
-                padding: 0 12px;
-                gap: 4px;
-            }
-            .ticker-label {
-                padding: 0 10px;
-                font-size: 0.65rem;
-            }
-            .standings-table {
-                font-size: 0.7rem;
-            }
+        }
+        @media (max-width: 768px) {
+            .header { padding: 8px 12px; top: 0; }
+            .ticker-wrap { top: 56px; }
+            .sport-nav { top: 96px; padding: 6px 10px; gap: 6px; }
+            .sport-tab { padding: 8px 14px; font-size: 0.8rem; }
+            .team-name { font-size: 0.85rem; max-width: 130px; }
+            .team-logo { width: 28px; height: 28px; }
+            .score-box { font-size: 1.4rem; min-width: 80px; padding: 6px 10px; }
+            .state-badge { font-size: 0.65rem; padding: 4px 10px; min-width: 70px; }
+            .sub-tab { padding: 8px 16px; font-size: 0.75rem; }
+            .filter-btn { padding: 6px 14px; font-size: 0.7rem; }
         }
         @media (max-width: 480px) {
-            .team-name {
-                font-size: 0.8rem;
-                max-width: 140px;
-            }
-            .team-logo {
-                width: 24px;
-                height: 24px;
-            }
-            .score-box {
-                font-size: 1.2rem;
-                min-width: 70px;
-                padding: 4px 8px;
-            }
-            .detail-chip {
-                font-size: 0.65rem;
-                padding: 5px 10px;
-            }
-            .sub-tab {
-                padding: 6px 12px;
-            }
+            .team-name { font-size: 0.8rem; max-width: 140px; }
+            .team-logo { width: 24px; height: 24px; }
+            .score-box { font-size: 1.2rem; min-width: 70px; padding: 4px 8px; }
+            .detail-chip { font-size: 0.65rem; padding: 5px 10px; }
+            .fav-star-btn { width: 40px; height: 40px; }
         }
         .empty {
             text-align: center;
@@ -732,13 +658,24 @@
         .sub-content.active {
             display: block;
         }
+        .default-logo-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface2);
+            border-radius: 50%;
+            color: var(--text2);
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
 
 <header class="header">
     <div class="brand">
-        <i class="fa-solid fa-futbol"></i>
+        <!-- icono eliminado -->
         <span>Todo Deportes</span>
     </div>
     <div class="header-right">
@@ -793,6 +730,19 @@
             obtenerDeporte(id) { return CONFIG.DEPORTES.find(d => d.id === id); },
             formatearFecha(isoStr) { if (!isoStr) return ''; const d = new Date(isoStr); return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }); },
             truncar(str, max) { if (!str) return ''; return str.length > max ? str.slice(0, max) + '…' : str; },
+            // Función para manejar errores de logo y mostrar icono por defecto
+            handleLogoError(imgElement, deporteIcon) {
+                if (!imgElement) return;
+                const fallbackIcon = deporteIcon || 'fa-sports';
+                const parent = imgElement.parentElement;
+                const defaultSpan = document.createElement('span');
+                defaultSpan.className = 'default-logo-icon';
+                defaultSpan.innerHTML = `<i class="fa-solid ${fallbackIcon}"></i>`;
+                imgElement.style.display = 'none';
+                if (parent && !parent.querySelector('.default-logo-icon')) {
+                    parent.insertBefore(defaultSpan, imgElement.nextSibling);
+                }
+            }
         };
         const FavManager = {
             cargar() { try { const raw = localStorage.getItem('td_favoritos'); STATE.favoritos = raw ? JSON.parse(raw) : {}; } catch(e) { STATE.favoritos = {}; } },
@@ -852,8 +802,25 @@
             actualizarSubTabs(deporteId, subtab) { const panel = document.getElementById('panel-' + deporteId) || document.getElementById('panel-__favoritos__'); if (!panel) return; panel.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active')); const activeBtn = panel.querySelector(`[data-subtab="${subtab}"]`); if (activeBtn) activeBtn.classList.add('active'); panel.querySelectorAll('.sub-content').forEach(sc => sc.classList.remove('active')); const contentId = subtab === 'fav-partidos' ? 'sub-fav-partidos-__favoritos__' : `sub-${subtab}-${deporteId}`; const content = document.getElementById(contentId); if (content) content.classList.add('active'); },
             mostrarPanel(id) { DOM.main.querySelectorAll('.panel').forEach(p => p.classList.remove('active')); const panel = document.getElementById('panel-' + id); if (panel) { panel.classList.add('active'); const group = panel.querySelector('.filter-group'); if (group) { const todosBtn = group.querySelector('[data-filtro="todos"]'); if (todosBtn) todosBtn.classList.add('active'); } } STATE.filtroActivo = 'todos'; STATE.subTabActivo = 'partidos'; this.actualizarSubTabs(id, 'partidos'); },
             mostrarPanelFavoritos() { DOM.main.querySelectorAll('.panel').forEach(p => p.classList.remove('active')); const panel = document.getElementById('panel-__favoritos__'); if (panel) panel.classList.add('active'); STATE.filtroActivo = 'todos'; STATE.subTabActivo = 'fav-partidos'; this.actualizarSubTabs('__favoritos__', 'fav-partidos'); App.renderizarFavoritos(); },
-            renderizarPartidos(deporteId, partidos, cambiados = new Set()) { const contenedor = document.getElementById('partidos-' + deporteId); const loader = document.getElementById('loader-' + deporteId); const summaryBar = document.getElementById('summary-' + deporteId); if (loader) loader.style.display = 'none'; let filtrados = partidos; if (STATE.filtroActivo === 'en-vivo') filtrados = partidos.filter(p => p.claseEstado === 'live'); else if (STATE.filtroActivo === 'finalizados') filtrados = partidos.filter(p => p.claseEstado === 'finished'); const enVivo = partidos.filter(p => p.claseEstado === 'live').length, finalizados = partidos.filter(p => p.claseEstado === 'finished').length, programados = partidos.filter(p => p.claseEstado === 'scheduled').length; if (summaryBar) summaryBar.innerHTML = `<span class="summary-item"><span class="summary-dot live-dot"></span> ${enVivo} en vivo</span><span class="summary-item"><span class="summary-dot fin-dot"></span> ${finalizados} finalizados</span><span class="summary-item"><span class="summary-dot sched-dot"></span> ${programados} programados</span>`; if (!filtrados.length) { contenedor.innerHTML = `<div class="empty"><i class="fa-regular fa-calendar-xmark"></i><p>${STATE.filtroActivo === 'en-vivo' ? 'No hay partidos en vivo ahora' : STATE.filtroActivo === 'finalizados' ? 'No hay finalizados' : 'No hay partidos'}</p></div>`; return; } contenedor.innerHTML = filtrados.map(p => { const flashClass = cambiados.has(p.id) ? ' flash-update' : ''; const esFavLocal = FavManager.esFavorito(deporteId, p.local), esFavVisitante = FavManager.esFavorito(deporteId, p.visitante); return `<div class="match-card${flashClass}" data-match-id="${p.id}" data-deporte-id="${deporteId}"><div class="match-main"><div class="team-block home"><button class="fav-star-btn${esFavLocal ? ' is-fav' : ''}" data-deporte="${deporteId}" data-equipo="${Util.escaparHTML(p.local)}" title="Favorito: ${Util.escaparHTML(p.local)}"><i class="fa-solid fa-star"></i></button>${p.localLogo ? `<img class="team-logo" src="${p.localLogo}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<span class="team-name">${Util.escaparHTML(p.local)}</span></div><div class="score-box${p.claseEstado === 'live' ? ' live-score' : ''}">${p.scoreLocal} - ${p.scoreVisitante}</div><div class="team-block away"><span class="team-name">${Util.escaparHTML(p.visitante)}</span>${p.visitanteLogo ? `<img class="team-logo" src="${p.visitanteLogo}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}<button class="fav-star-btn${esFavVisitante ? ' is-fav' : ''}" data-deporte="${deporteId}" data-equipo="${Util.escaparHTML(p.visitante)}" title="Favorito: ${Util.escaparHTML(p.visitante)}"><i class="fa-solid fa-star"></i></button></div><span class="state-badge ${p.claseEstado}">${p.textoEstado}</span></div><div class="match-detail">${p.period ? `<span class="detail-chip"><i class="fa-regular fa-clock"></i> ${p.period}º tiempo</span>` : ''}${p.clock && p.claseEstado === 'live' ? `<span class="detail-chip"><i class="fa-solid fa-stopwatch"></i> ${p.clock}</span>` : ''}${p.localRecord ? `<span class="detail-chip"><i class="fa-solid fa-chart-bar"></i> ${p.localRecord}</span>` : ''}${p.visitanteRecord ? `<span class="detail-chip"><i class="fa-solid fa-chart-bar"></i> ${p.visitanteRecord}</span>` : ''}${p.transmision ? `<span class="detail-chip"><i class="fa-solid fa-tv"></i> ${p.transmision}</span>` : ''}${p.sede ? `<span class="detail-chip"><i class="fa-solid fa-location-dot"></i> ${p.sede}</span>` : ''}<span class="detail-chip" id="stats-chip-${p.id}"><i class="fa-solid fa-chart-pie"></i> Cargando estadísticas...</span></div></div>`; }).join(''); },
-            renderizarStandings(deporteId, grupos) { const contenedor = document.getElementById('standings-' + deporteId); const loader = document.getElementById('loader-standings-' + deporteId); if (loader) loader.style.display = 'none'; if (!grupos || !grupos.length || !grupos[0].equipos.length) { contenedor.innerHTML = '<div class="empty"><i class="fa-solid fa-table-list"></i><p>No hay datos de clasificación disponibles.</p></div>'; return; } let html = ''; grupos.forEach(grupo => { if (grupo.nombre) html += `<h3 style="margin:14px 0 8px;font-size:0.85rem;color:var(--text2);">${grupo.nombre}</h3><div style="overflow-x:auto;"><table class="standings-table"><thead><tr><th>#</th><th>Equipo</th>${Object.keys(grupo.equipos[0]?.stats || {}).slice(0,6).map(k => `<th>${k}</th>`).join('')}</tr></thead><tbody>`; grupo.equipos.forEach(eq => { html += `<tr><td class="pos">${eq.pos}</td><td><span class="team-cell">${eq.logo ? `<img src="${eq.logo}" width="20" height="20" onerror="this.style.display='none'">` : ''}${Util.escaparHTML(eq.equipo)}</span></td>${Object.keys(eq.stats).slice(0,6).map(k => `<td class="pts">${eq.stats[k] || '-'}</td>`).join('')}</tr>`; }); html += '</tbody></table></div>'; }); contenedor.innerHTML = html; },
+            renderizarPartidos(deporteId, partidos, cambiados = new Set()) { 
+                const contenedor = document.getElementById('partidos-' + deporteId); 
+                const loader = document.getElementById('loader-' + deporteId); 
+                const summaryBar = document.getElementById('summary-' + deporteId); 
+                if (loader) loader.style.display = 'none'; 
+                let filtrados = partidos; 
+                if (STATE.filtroActivo === 'en-vivo') filtrados = partidos.filter(p => p.claseEstado === 'live'); 
+                else if (STATE.filtroActivo === 'finalizados') filtrados = partidos.filter(p => p.claseEstado === 'finished'); 
+                const enVivo = partidos.filter(p => p.claseEstado === 'live').length, finalizados = partidos.filter(p => p.claseEstado === 'finished').length, programados = partidos.filter(p => p.claseEstado === 'scheduled').length; 
+                if (summaryBar) summaryBar.innerHTML = `<span class="summary-item"><span class="summary-dot live-dot"></span> ${enVivo} en vivo</span><span class="summary-item"><span class="summary-dot fin-dot"></span> ${finalizados} finalizados</span><span class="summary-item"><span class="summary-dot sched-dot"></span> ${programados} programados</span>`; 
+                if (!filtrados.length) { contenedor.innerHTML = `<div class="empty"><i class="fa-regular fa-calendar-xmark"></i><p>${STATE.filtroActivo === 'en-vivo' ? 'No hay partidos en vivo ahora' : STATE.filtroActivo === 'finalizados' ? 'No hay finalizados' : 'No hay partidos'}</p></div>`; return; } 
+                const deporteIcon = Util.obtenerDeporte(deporteId)?.icon || 'fa-sports';
+                contenedor.innerHTML = filtrados.map(p => { 
+                    const flashClass = cambiados.has(p.id) ? ' flash-update' : ''; 
+                    const esFavLocal = FavManager.esFavorito(deporteId, p.local), esFavVisitante = FavManager.esFavorito(deporteId, p.visitante); 
+                    return `<div class="match-card${flashClass}" data-match-id="${p.id}" data-deporte-id="${deporteId}"><div class="match-main"><div class="team-block home"><button class="fav-star-btn${esFavLocal ? ' is-fav' : ''}" data-deporte="${deporteId}" data-equipo="${Util.escaparHTML(p.local)}" title="Favorito: ${Util.escaparHTML(p.local)}"><i class="fa-solid fa-star"></i></button>${p.localLogo ? `<img class="team-logo" src="${p.localLogo}" alt="" loading="lazy" onerror="Util.handleLogoError(this, '${deporteIcon}')">` : `<span class="default-logo-icon"><i class="fa-solid ${deporteIcon}"></i></span>`}<span class="team-name">${Util.escaparHTML(p.local)}</span></div><div class="score-box${p.claseEstado === 'live' ? ' live-score' : ''}">${p.scoreLocal} - ${p.scoreVisitante}</div><div class="team-block away"><span class="team-name">${Util.escaparHTML(p.visitante)}</span>${p.visitanteLogo ? `<img class="team-logo" src="${p.visitanteLogo}" alt="" loading="lazy" onerror="Util.handleLogoError(this, '${deporteIcon}')">` : `<span class="default-logo-icon"><i class="fa-solid ${deporteIcon}"></i></span>`}<button class="fav-star-btn${esFavVisitante ? ' is-fav' : ''}" data-deporte="${deporteId}" data-equipo="${Util.escaparHTML(p.visitante)}" title="Favorito: ${Util.escaparHTML(p.visitante)}"><i class="fa-solid fa-star"></i></button></div><span class="state-badge ${p.claseEstado}">${p.textoEstado}</span></div><div class="match-detail">${p.period ? `<span class="detail-chip"><i class="fa-regular fa-clock"></i> ${p.period}º tiempo</span>` : ''}${p.clock && p.claseEstado === 'live' ? `<span class="detail-chip"><i class="fa-solid fa-stopwatch"></i> ${p.clock}</span>` : ''}${p.localRecord ? `<span class="detail-chip"><i class="fa-solid fa-chart-bar"></i> ${p.localRecord}</span>` : ''}${p.visitanteRecord ? `<span class="detail-chip"><i class="fa-solid fa-chart-bar"></i> ${p.visitanteRecord}</span>` : ''}${p.transmision ? `<span class="detail-chip"><i class="fa-solid fa-tv"></i> ${p.transmision}</span>` : ''}${p.sede ? `<span class="detail-chip"><i class="fa-solid fa-location-dot"></i> ${p.sede}</span>` : ''}<span class="detail-chip" id="stats-chip-${p.id}"><i class="fa-solid fa-chart-pie"></i> Cargando estadísticas...</span></div></div>`; 
+                }).join(''); 
+            },
+            renderizarStandings(deporteId, grupos) { const contenedor = document.getElementById('standings-' + deporteId); const loader = document.getElementById('loader-standings-' + deporteId); if (loader) loader.style.display = 'none'; if (!grupos || !grupos.length || !grupos[0].equipos.length) { contenedor.innerHTML = '<div class="empty"><i class="fa-solid fa-table-list"></i><p>No hay datos de clasificación disponibles.</p></div>'; return; } let html = ''; grupos.forEach(grupo => { if (grupo.nombre) html += `<h3 style="margin:14px 0 8px;font-size:0.85rem;color:var(--text2);">${grupo.nombre}</h3><div style="overflow-x:auto;"><table class="standings-table"><thead><tr><th>#</th><th>Equipo</th>${Object.keys(grupo.equipos[0]?.stats || {}).slice(0,6).map(k => `<th>${k}</th>`).join('')}</tr></thead><tbody>`; grupo.equipos.forEach(eq => { html += `<tr><td class="pos">${eq.pos}</td><td><span class="team-cell">${eq.logo ? `<img src="${eq.logo}" width="20" height="20" onerror="this.style.display='none'" style="margin-right:6px;">` : ''}${Util.escaparHTML(eq.equipo)}</span></td>${Object.keys(eq.stats).slice(0,6).map(k => `<td class="pts">${eq.stats[k] || '-'}</td>`).join('')}</tr>`; }); html += '</tbody></table></div>'; }); contenedor.innerHTML = html; },
             renderizarNoticias(deporteId, noticias) { const contenedor = document.getElementById('noticias-' + deporteId); const loader = document.getElementById('loader-news-' + deporteId); if (loader) loader.style.display = 'none'; if (!noticias.length) { contenedor.innerHTML = '<div class="empty"><i class="fa-solid fa-newspaper"></i><p>No hay noticias disponibles.</p></div>'; return; } contenedor.innerHTML = noticias.map(n => { const imagenHtml = n.imagen ? `<img src="${n.imagen}" alt="" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML = '<div class=\\'news-img-placeholder\\'><i class=\\'fa-solid fa-image\\'></i></div>'">` : `<div class="news-img-placeholder"><i class="fa-solid fa-newspaper"></i></div>`; return `<a href="${n.url}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;"><div class="news-card">${imagenHtml}<div class="news-content"><div class="news-title">${Util.escaparHTML(n.titulo)}</div><div class="news-meta" style="font-size:0.7rem;color:var(--text2);margin-bottom:4px;"><span><i class="fa-solid fa-clock"></i> ${Util.formatearFecha(n.fecha)}</span><span><i class="fa-solid fa-tag"></i> ${Util.escaparHTML(n.fuente)}</span></div>${n.descripcion ? `<div class="news-desc">${Util.escaparHTML(Util.truncar(n.descripcion, 140))}</div>` : ''}</div></div></a>`; }).join(''); },
             renderizarStatsEnChip(eventId, statsData, cardElement) { const chip = cardElement?.querySelector(`#stats-chip-${eventId}`); if (!chip || !statsData) { if (chip) chip.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Sin estadísticas'; return; } try { const header = statsData.header?.competitions?.[0]; if (!header) { chip.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Sin estadísticas'; return; } const statsGroups = header.stats || []; const flatStats = []; statsGroups.forEach(group => { if (group.stats) flatStats.push(...group.stats); }); if (flatStats.length === 0) { chip.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Sin estadísticas'; return; } const statsContainer = document.createElement('div'); statsContainer.className = 'stats-mini'; flatStats.slice(0, 8).forEach(stat => { const valA = parseFloat(stat.athletes?.[0]?.stats?.[0]?.value) || 0; const valB = parseFloat(stat.athletes?.[1]?.stats?.[0]?.value) || 0; const total = valA + valB || 1; const pctA = Math.round((valA / total) * 100); statsContainer.innerHTML += `<div class="stat-row"><span class="stat-val">${valA}</span><span class="stat-label">${stat.name || stat.abbreviation || 'Stat'}</span><div class="stat-bar-wrap"><div class="stat-bar-fill" style="width:${pctA}%;"></div></div><span class="stat-val">${valB}</span></div>`; }); chip.innerHTML = ''; chip.appendChild(statsContainer); chip.style.flexBasis = '100%'; } catch(e) { chip.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Estadísticas no disponibles'; } },
             mostrarError(deporteId, mensaje) { const contenedor = document.getElementById('partidos-' + deporteId); const loader = document.getElementById('loader-' + deporteId); if (loader) loader.style.display = 'none'; if (contenedor) contenedor.innerHTML = `<div class="empty"><i class="fa-solid fa-cloud-bolt"></i><p>${mensaje}</p><button class="retry-btn" onclick="TodoDeportes.reintentar('${deporteId}')"><i class="fa-solid fa-rotate-right"></i> Reintentar</button></div>`; },
@@ -868,7 +835,7 @@
             async cargarStandings(deporteId) { if (deporteId === '__favoritos__') return; const deporte = Util.obtenerDeporte(deporteId); if (!deporte || !deporte.tieneStandings) return; const cacheEntry = CacheManager.obtenerStandings(deporteId); const loader = document.getElementById('loader-standings-' + deporteId); if (CacheManager.esValidoStandings(deporteId)) { UIBuilder.renderizarStandings(deporteId, cacheEntry.grupos); if (loader) loader.style.display = 'none'; return; } if (loader) loader.style.display = 'flex'; try { const data = await API.obtenerStandings(deporte); const grupos = API.procesarStandings(data); CacheManager.guardarStandings(deporteId, grupos); UIBuilder.renderizarStandings(deporteId, grupos); } catch(err) { if (cacheEntry && cacheEntry.grupos) UIBuilder.renderizarStandings(deporteId, cacheEntry.grupos); else UIBuilder.mostrarErrorStandings(deporteId, 'No se pudo cargar la tabla.'); } },
             async cargarNoticias(deporteId) { if (deporteId === '__favoritos__') return; const deporte = Util.obtenerDeporte(deporteId); if (!deporte) return; const cacheEntry = CacheManager.obtenerNoticias(deporteId); const loader = document.getElementById('loader-news-' + deporteId); if (CacheManager.esValidoNoticias(deporteId)) { UIBuilder.renderizarNoticias(deporteId, cacheEntry.noticias); if (loader) loader.style.display = 'none'; return; } if (loader) loader.style.display = 'flex'; try { const data = await API.obtenerNoticias(deporte); const noticias = API.procesarNoticias(data); CacheManager.guardarNoticias(deporteId, noticias); UIBuilder.renderizarNoticias(deporteId, noticias); } catch(err) { if (cacheEntry && cacheEntry.noticias) UIBuilder.renderizarNoticias(deporteId, cacheEntry.noticias); else UIBuilder.mostrarErrorNoticias(deporteId, 'No se pudieron cargar las noticias.'); } },
             async cargarStatsEvento(deporteId, eventId, cardElement) { const chip = cardElement?.querySelector(`#stats-chip-${eventId}`); if (!chip || chip.querySelector('.stats-mini')) return; const cacheEntry = CacheManager.obtenerStatsEvento(eventId); if (cacheEntry) { UIBuilder.renderizarStatsEnChip(eventId, cacheEntry.data, cardElement); return; } const deporte = Util.obtenerDeporte(deporteId); if (!deporte) { if (chip) chip.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Estadísticas no disponibles'; return; } try { const data = await API.obtenerResumenEvento(deporte, eventId); CacheManager.guardarStatsEvento(eventId, data); UIBuilder.renderizarStatsEnChip(eventId, data, cardElement); } catch(err) { if (chip) chip.innerHTML = '<i class="fa-solid fa-chart-pie"></i> Estadísticas no disponibles'; } },
-            renderizarFavoritos() { const contenedor = document.getElementById('partidos-__favoritos__'); const summaryBar = document.getElementById('summary-__favoritos__'); const favEquipos = FavManager.obtenerEquiposFavoritos(); if (!favEquipos.length) { if (summaryBar) summaryBar.innerHTML = ''; contenedor.innerHTML = `<div class="empty"><i class="fa-regular fa-star"></i><p>No tienes equipos favoritos.</p><p style="font-size:0.8rem;">Toca la estrella junto a un equipo para agregarlo.</p></div>`; return; } const todosPartidos = []; for (const fav of favEquipos) { const cacheEntry = STATE.cache[fav.deporteId]; if (!cacheEntry || !cacheEntry.partidos) continue; cacheEntry.partidos.forEach(p => { if (p.local === fav.nombre || p.visitante === fav.nombre) { if (!todosPartidos.find(x => x.id === p.id)) todosPartidos.push({ ...p, _deporteId: fav.deporteId }); } }); } todosPartidos.sort((a,b) => { const order = { live: 0, scheduled: 1, finished: 2 }; return (order[a.claseEstado] || 3) - (order[b.claseEstado] || 3); }); const enVivo = todosPartidos.filter(p => p.claseEstado === 'live').length, finalizados = todosPartidos.filter(p => p.claseEstado === 'finished').length, programados = todosPartidos.filter(p => p.claseEstado === 'scheduled').length; if (summaryBar) summaryBar.innerHTML = `<span class="summary-item"><span class="summary-dot live-dot"></span> ${enVivo} en vivo</span><span class="summary-item"><span class="summary-dot fin-dot"></span> ${finalizados} finalizados</span><span class="summary-item"><span class="summary-dot sched-dot"></span> ${programados} programados</span><span class="summary-item">⭐ ${favEquipos.length} favoritos</span>`; if (!todosPartidos.length) { contenedor.innerHTML = `<div class="empty"><i class="fa-regular fa-futbol"></i><p>Tus equipos favoritos no tienen partidos ahora.</p></div>`; return; } contenedor.innerHTML = todosPartidos.map(p => { const esFavLocal = FavManager.esFavorito(p._deporteId, p.local), esFavVisitante = FavManager.esFavorito(p._deporteId, p.visitante); return `<div class="match-card" data-match-id="${p.id}" data-deporte-id="${p._deporteId}"><div class="match-main"><div class="team-block home"><button class="fav-star-btn${esFavLocal ? ' is-fav' : ''}" data-deporte="${p._deporteId}" data-equipo="${Util.escaparHTML(p.local)}"><i class="fa-solid fa-star"></i></button>${p.localLogo ? `<img class="team-logo" src="${p.localLogo}" onerror="this.style.display='none'">` : ''}<span class="team-name">${Util.escaparHTML(p.local)}</span></div><div class="score-box${p.claseEstado === 'live' ? ' live-score' : ''}">${p.scoreLocal} - ${p.scoreVisitante}</div><div class="team-block away"><span class="team-name">${Util.escaparHTML(p.visitante)}</span>${p.visitanteLogo ? `<img class="team-logo" src="${p.visitanteLogo}" onerror="this.style.display='none'">` : ''}<button class="fav-star-btn${esFavVisitante ? ' is-fav' : ''}" data-deporte="${p._deporteId}" data-equipo="${Util.escaparHTML(p.visitante)}"><i class="fa-solid fa-star"></i></button></div><span class="state-badge ${p.claseEstado}">${p.textoEstado}</span></div><div class="match-detail"><span class="detail-chip"><i class="fa-solid ${Util.obtenerDeporte(p._deporteId)?.icon || 'fa-trophy'}"></i> ${Util.obtenerDeporte(p._deporteId)?.nombre || 'Deporte'}</span>${p.sede ? `<span class="detail-chip"><i class="fa-solid fa-location-dot"></i> ${Util.escaparHTML(p.sede)}</span>` : ''}</div></div>`; }).join(''); },
+            renderizarFavoritos() { const contenedor = document.getElementById('partidos-__favoritos__'); const summaryBar = document.getElementById('summary-__favoritos__'); const favEquipos = FavManager.obtenerEquiposFavoritos(); if (!favEquipos.length) { if (summaryBar) summaryBar.innerHTML = ''; contenedor.innerHTML = `<div class="empty"><i class="fa-regular fa-star"></i><p>No tienes equipos favoritos.</p><p style="font-size:0.8rem;">Toca la estrella junto a un equipo para agregarlo.</p></div>`; return; } const todosPartidos = []; for (const fav of favEquipos) { const cacheEntry = STATE.cache[fav.deporteId]; if (!cacheEntry || !cacheEntry.partidos) continue; cacheEntry.partidos.forEach(p => { if (p.local === fav.nombre || p.visitante === fav.nombre) { if (!todosPartidos.find(x => x.id === p.id)) todosPartidos.push({ ...p, _deporteId: fav.deporteId }); } }); } todosPartidos.sort((a,b) => { const order = { live: 0, scheduled: 1, finished: 2 }; return (order[a.claseEstado] || 3) - (order[b.claseEstado] || 3); }); const enVivo = todosPartidos.filter(p => p.claseEstado === 'live').length, finalizados = todosPartidos.filter(p => p.claseEstado === 'finished').length, programados = todosPartidos.filter(p => p.claseEstado === 'scheduled').length; if (summaryBar) summaryBar.innerHTML = `<span class="summary-item"><span class="summary-dot live-dot"></span> ${enVivo} en vivo</span><span class="summary-item"><span class="summary-dot fin-dot"></span> ${finalizados} finalizados</span><span class="summary-item"><span class="summary-dot sched-dot"></span> ${programados} programados</span><span class="summary-item">⭐ ${favEquipos.length} favoritos</span>`; if (!todosPartidos.length) { contenedor.innerHTML = `<div class="empty"><i class="fa-regular fa-futbol"></i><p>Tus equipos favoritos no tienen partidos ahora.</p></div>`; return; } contenedor.innerHTML = todosPartidos.map(p => { const esFavLocal = FavManager.esFavorito(p._deporteId, p.local), esFavVisitante = FavManager.esFavorito(p._deporteId, p.visitante); const deporteIcon = Util.obtenerDeporte(p._deporteId)?.icon || 'fa-sports'; return `<div class="match-card" data-match-id="${p.id}" data-deporte-id="${p._deporteId}"><div class="match-main"><div class="team-block home"><button class="fav-star-btn${esFavLocal ? ' is-fav' : ''}" data-deporte="${p._deporteId}" data-equipo="${Util.escaparHTML(p.local)}"><i class="fa-solid fa-star"></i></button>${p.localLogo ? `<img class="team-logo" src="${p.localLogo}" onerror="Util.handleLogoError(this, '${deporteIcon}')">` : `<span class="default-logo-icon"><i class="fa-solid ${deporteIcon}"></i></span>`}<span class="team-name">${Util.escaparHTML(p.local)}</span></div><div class="score-box${p.claseEstado === 'live' ? ' live-score' : ''}">${p.scoreLocal} - ${p.scoreVisitante}</div><div class="team-block away"><span class="team-name">${Util.escaparHTML(p.visitante)}</span>${p.visitanteLogo ? `<img class="team-logo" src="${p.visitanteLogo}" onerror="Util.handleLogoError(this, '${deporteIcon}')">` : `<span class="default-logo-icon"><i class="fa-solid ${deporteIcon}"></i></span>`}<button class="fav-star-btn${esFavVisitante ? ' is-fav' : ''}" data-deporte="${p._deporteId}" data-equipo="${Util.escaparHTML(p.visitante)}"><i class="fa-solid fa-star"></i></button></div><span class="state-badge ${p.claseEstado}">${p.textoEstado}</span></div><div class="match-detail"><span class="detail-chip"><i class="fa-solid ${deporteIcon}"></i> ${Util.obtenerDeporte(p._deporteId)?.nombre || 'Deporte'}</span>${p.sede ? `<span class="detail-chip"><i class="fa-solid fa-location-dot"></i> ${Util.escaparHTML(p.sede)}</span>` : ''}</div></div>`; }).join(''); },
             refrescarTodo() { if (STATE.deporteActivo === '__favoritos__') { this.renderizarFavoritos(); CONFIG.DEPORTES.forEach(d => { if (!CacheManager.esValido(d.id)) this.cargarDeporte(d.id, true); }); } else { this.cargarDeporte(STATE.deporteActivo, true); CONFIG.DEPORTES.forEach(d => { if (d.id !== STATE.deporteActivo && !CacheManager.esValido(d.id)) this.cargarDeporte(d.id, true); }); } Ticker.actualizar(); DOM.liveTime.textContent = `Actualizado: ${Util.formatearHora()}`; },
             async iniciar() { FavManager.cargar(); UIBuilder.construirNavegacion(); UIBuilder.construirPaneles(); DOM.liveTime.textContent = `Actualizado: ${Util.formatearHora()}`; await this.cargarDeporte(STATE.deporteActivo); setTimeout(() => { CONFIG.DEPORTES.forEach(d => { if (d.id !== STATE.deporteActivo) this.cargarDeporte(d.id); }); }, 2000); setInterval(() => this.refrescarTodo(), CONFIG.INTERVALO_REFRESCO); setInterval(() => { DOM.liveTime.textContent = `Actualizado: ${Util.formatearHora()}`; }, 1000); setInterval(() => Ticker.actualizar(), CONFIG.INTERVALO_TICKER); },
         };
